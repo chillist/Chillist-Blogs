@@ -149,8 +149,14 @@ code {
 
 pre {
   border-radius: 8px !important;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 8px 24px rgb(15 23 42 / 6%);
   margin: 1.2em 0 !important;
   padding: 1.2em;
+}
+
+pre.astro-code {
+  background-color: #f8fafc !important;
 }
 
 pre code {

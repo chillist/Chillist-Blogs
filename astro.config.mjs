@@ -11,7 +11,7 @@ export default defineConfig({
   integrations: [mdx(), svelte()],
   markdown: {
     shikiConfig: {
-      theme: 'nord',
+      theme: 'github-light',
     },
     remarkPlugins: [remarkGfm, remarkSmartypants],
     rehypePlugins: [
