@@ -8,7 +8,10 @@ import rehypeExternalLinks from 'rehype-external-links'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://chillist.github.io',
+  base: '/Chillist-Blogs',
+
   integrations: [mdx(), svelte()],
+
   markdown: {
     shikiConfig: {
       theme: 'github-light',
