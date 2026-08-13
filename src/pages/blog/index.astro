@@ -12,14 +12,13 @@ allPosts = allPosts.sort((a, b) => new Date(b.data.publishDate).valueOf() - new 
 ---
 
 <BaseLayout title={title} description={description} permalink={permalink} current="blog">
-  <div class="container">
+  <div class="blog-container">
     <h1>Blog</h1>
-    {allPosts.map((post, index) => {
-      const href = `/blog/${post.data.slug}`;
-      return (
-        <div>
-          { index !== 0 && <hr /> }
-          <div class="post-item">
+    <div class="post-grid">
+      {allPosts.map((post) => {
+        const href = `/blog/${post.data.slug}`;
+        return (
+          <article class="post-item">
             <h2>
               <a href={href}>{post.data.title}</a>
             </h2>
@@ -27,18 +26,49 @@ allPosts = allPosts.sort((a, b) => new Date(b.data.publishDate).valueOf() - new 
             <div class="post-item-footer">
               <span class="post-item-date">— {formatDate(post.data.publishDate)}</span>
             </div>
-          </div>
-        </div>
-      )
-    })}
+            <hr />
+          </article>
+        )
+      })}
+    </div>
   </div>
 </BaseLayout>
 
 <style>
+  .blog-container {
+    margin: 2em auto;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .blog-container > h1 {
+    margin-top: 0;
+  }
+
+  .post-grid {
+    display: grid;
+    gap: 0 clamp(3em, 8vw, 7em);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .post-item {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
   h2,
   .post-item-footer {
     font-family: var(--font-family-sans);
     font-weight: 700;
+  }
+
+  .post-item h2 {
+    margin-top: 0;
+  }
+
+  .post-item-footer {
+    margin-top: auto;
   }
 
   .post-item-date {
@@ -49,6 +79,17 @@ allPosts = allPosts.sort((a, b) => new Date(b.data.publishDate).valueOf() - new 
   }
 
   hr {
-    margin: 60px auto;
+    margin: 3em 0;
+    width: 100%;
+  }
+
+  @media (max-width: 800px) {
+    .blog-container {
+      margin-top: 0;
+    }
+
+    .post-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
