@@ -1,48 +1,108 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const title = 'About';
-const description = 'About your blog.';
+const title = '关于 Chillist';
+const description = '关于 Chillist，以及这个博客记录的学习、实践与成长。';
 const permalink = `${Astro.site.href}about`;
 ---
 
 <BaseLayout title={title} description={description} permalink={permalink} current="about">
-  <div class="container">
-    <h1>About</h1>
-    <figure class="about-image">
-      <img src="/assets/about-illustration.webp" alt="Illustration of a notebook" width="330">
-      <figcaption>
-        Illustration by
-        <a href="https://icons8.com/illustrations/author/5c07e68d82bcbc0092519bb6" target="_blank" rel="noopener">Icons 8</a>
-        from
-        <a href="https://icons8.com/illustrations" target="_blank" rel="noopener">Ouch!</a>
-      </figcaption>
-    </figure>
-    <p>Text placeholder via <a href="https://jeffsum.com/" target="_blank">Jeffsum</a>.</p>
-    <p>So you two dig up, dig up dinosaurs? What do they got in there? King Kong? My dad once told me, laugh and the world laughs with you, Cry, and I'll give you something to cry about you little bastard! Life finds a way. God creates dinosaurs. God destroys dinosaurs. God creates Man. Man destroys God. Man creates Dinosaurs.</p>
-    <p>You really think you can fly that thing? You know what? It is beets. I've crashed into a beet truck. Forget the fat lady! You're obsessed with the fat lady! Drive us out of here! Is this my espresso machine? Wh-what is-h-how did you get my espresso machine?</p>
-    <p>Hey, you know how I'm, like, always trying to save the planet? Here's my chance. Hey, take a look at the earthlings. Goodbye! I was part of something special. Just my luck, no ice. You're a very talented young man, with your own clever thoughts and ideas. Do you need a manager?</p>
-    <p>Jaguar shark! So tell me - does it really exist? This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows. Yes, Yes, without the oops! You're a very talented young man, with your own clever thoughts and ideas. Do you need a manager?</p>
-    <p>Yes, Yes, without the oops! Do you have any idea how long it takes those cups to decompose. They're using our own satellites against us. And the clock is ticking. Do you have any idea how long it takes those cups to decompose. My dad once told me, laugh and the world laughs with you, Cry, and I'll give you something to cry about you little bastard!</p>
+  <div class="about-container">
+    <section class="about-hero">
+      <div class="about-copy">
+        <h1>关于我</h1>
+        <p>你好，我是 <strong>Chillist</strong>。我喜欢把复杂的问题拆开，在学习和实践中找到答案，再把真正有用的部分记录下来。</p>
+        <p>这个博客主要记录我在深度学习、Java 与软件工程实践中的学习笔记和项目复盘。从 CNN 到 RPC，从一个想法到可以运行的项目，我希望在这里留下代码之外的思考、踩过的坑和做出选择的理由。</p>
+      </div>
+
+      <figure class="about-image">
+        <img src="/assets/about-illustration.webp" alt="笔记本插画" width="420">
+      </figure>
+    </section>
+
+    <section class="about-details">
+      <div>
+        <h2>我在这里写什么</h2>
+        <ul>
+          <li>深度学习中的概念、实验与复现过程</li>
+          <li>Java、后端开发与工程化实践</li>
+          <li>个人项目从设计、实现到复盘的完整过程</li>
+          <li>学习方法与阶段性的成长记录</li>
+        </ul>
+      </div>
+
+      <div class="about-note">
+        <p>我不希望这里只是一份“完成了什么”的清单，更希望它能回答：为什么这样做，哪里做得不够好，以及下一次可以怎样做得更好。</p>
+        <h2>找到我</h2>
+        <p>你可以在 GitHub 上找到我：<a href="https://github.com/chillist" target="_blank" rel="noopener">@Chillist</a>。</p>
+      </div>
+    </section>
   </div>
 </BaseLayout>
 
 <style>
+  .about-container {
+    margin: 2em auto;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .about-hero {
+    align-items: center;
+    display: grid;
+    gap: clamp(3em, 8vw, 7em);
+    grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+    min-height: 420px;
+  }
+
+  .about-copy h1 {
+    margin-top: 0;
+  }
+
   .about-image {
-    float: right;
-    margin: -3em -7em 2em 2em;
-    max-width: 300px;
+    margin: 0;
+    text-align: center;
   }
 
   .about-image img {
     border-radius: 8px;
-    margin-bottom: 1.5em;
+    display: block;
+    margin: 0 auto;
+    width: min(100%, 420px);
   }
 
-  @media (max-width: 1020px) {
-    .about-image {
-      float: none;
-      margin: 0 auto 2em;
+  .about-details {
+    display: grid;
+    gap: clamp(3em, 8vw, 7em);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: clamp(2em, 5vw, 4em);
+  }
+
+  .about-details h2 {
+    margin-top: 0;
+  }
+
+  .about-note {
+    align-self: center;
+  }
+
+  @media (max-width: 800px) {
+    .about-container {
+      margin-top: 0;
+    }
+
+    .about-hero,
+    .about-details {
+      gap: 2em;
+      grid-template-columns: 1fr;
+    }
+
+    .about-hero {
+      min-height: auto;
+    }
+
+    .about-image img {
+      max-width: 320px;
     }
   }
 </style>
