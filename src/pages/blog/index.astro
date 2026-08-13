@@ -15,22 +15,44 @@ allPosts = allPosts.sort((a, b) => new Date(b.data.publishDate).valueOf() - new 
 <BaseLayout title={title} description={description} permalink={permalink} current="blog">
   <div class="blog-container">
     <h1>Blog</h1>
-    <div class="post-grid">
-      {allPosts.map((post) => {
-        const href = `${base}/blog/${post.data.slug}`;
-        return (
-          <article class="post-item">
-            <h2>
-              <a href={href}>{post.data.title}</a>
-            </h2>
-            <p>{post.data.description}</p>
-            <div class="post-item-footer">
-              <span class="post-item-date">— {formatDate(post.data.publishDate)}</span>
-            </div>
-            <hr />
-          </article>
-        )
-      })}
+    <div class="blog-layout">
+      <aside class="post-toc" aria-labelledby="post-toc-title">
+        <h2 id="post-toc-title">文章目录</h2>
+        <nav aria-label="全部博客文章">
+          <ul>
+            {allPosts.map((post) => {
+              return (
+                <li>
+                  <a href={`${base}/blog/${post.data.slug}`}>
+                    {post.data.title}
+                  </a>
+                  <time datetime={new Date(post.data.publishDate).toISOString()}>
+                    {formatDate(post.data.publishDate)}
+                  </time>
+                </li>
+              )
+            })}
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="post-grid">
+        {allPosts.map((post) => {
+          const href = `${base}/blog/${post.data.slug}`;
+          return (
+            <article class="post-item">
+              <h2>
+                <a href={href}>{post.data.title}</a>
+              </h2>
+              <p>{post.data.description}</p>
+              <div class="post-item-footer">
+                <span class="post-item-date">— {formatDate(post.data.publishDate)}</span>
+              </div>
+              <hr />
+            </article>
+          )
+        })}
+      </div>
     </div>
   </div>
 </BaseLayout>
@@ -46,10 +68,66 @@ allPosts = allPosts.sort((a, b) => new Date(b.data.publishDate).valueOf() - new 
     margin-top: 0;
   }
 
+  .blog-layout {
+    align-items: start;
+    display: grid;
+    gap: clamp(2em, 5vw, 5em);
+    grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+  }
+
+  .post-toc {
+    align-self: start;
+    position: sticky;
+    top: 2em;
+  }
+
+  .post-toc h2 {
+    font-size: 1.4em;
+    margin: 0 0 1em;
+  }
+
+  .post-toc ul {
+    --toc-item-height: 5.75rem;
+    list-style: none;
+    margin: 0;
+    max-height: calc(var(--toc-item-height) * 6);
+    overflow-y: auto;
+    padding: 0 1em 0 0;
+  }
+
+  .post-toc li {
+    border-bottom: 1px solid var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    min-height: var(--toc-item-height);
+  }
+
+  .post-toc a {
+    display: -webkit-box;
+    font-family: var(--font-family-sans);
+    font-weight: 700;
+    line-height: 1.4;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .post-toc time {
+    color: var(--text-secondary);
+    font-family: var(--font-family-sans);
+    font-size: 0.8em;
+    font-weight: 700;
+    margin-top: 0.4em;
+    text-transform: uppercase;
+  }
+
   .post-grid {
     display: grid;
     gap: 0 clamp(3em, 8vw, 7em);
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-width: 0;
   }
 
   .post-item {
@@ -84,9 +162,17 @@ allPosts = allPosts.sort((a, b) => new Date(b.data.publishDate).valueOf() - new 
     width: 100%;
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 900px) {
     .blog-container {
       margin-top: 0;
+    }
+
+    .blog-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .post-toc {
+      position: static;
     }
 
     .post-grid {
