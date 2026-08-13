@@ -36,7 +36,7 @@ AlexNet-CIFAR10 的主要特征提取流程如下：
 - 后续继续使用多层卷积提取深层特征；
 - 最后经过池化、展平和多层全连接层，输出 10 类分类结果。
 
-![学习报告 1 配图](/assets/blog/deep-learning/report-01/image-01.png)
+![学习报告 1 配图](/Chillist-Blogs/assets/blog/deep-learning/report-01/image-01.png)
 
 
 **AlexNet 模型结构代码**
@@ -86,11 +86,11 @@ def forward(self, x):
 
 
 **AlexNet 训练结果**
-![学习报告 1 配图](/assets/blog/deep-learning/report-01/image-02.png)
+![学习报告 1 配图](/Chillist-Blogs/assets/blog/deep-learning/report-01/image-02.png)
 
 
 **AlexNet 测试结果**
-![学习报告 1 配图](/assets/blog/deep-learning/report-01/image-03.png)
+![学习报告 1 配图](/Chillist-Blogs/assets/blog/deep-learning/report-01/image-03.png)
 
 ### （2）VGG 网络结构学习与 Mini-VGG 模型实验
 
@@ -109,7 +109,7 @@ Mini-VGG 的特征提取过程大致如下：
 - 最终特征图被压缩为 256×1×1；
     
 - 展平后输入全连接层，完成 10 类分类任务。
-![学习报告 1 配图](/assets/blog/deep-learning/report-01/image-04.png)
+![学习报告 1 配图](/Chillist-Blogs/assets/blog/deep-learning/report-01/image-04.png)
 
 
 **Mini-VGG 模型结构代码**
@@ -217,10 +217,10 @@ def forward(self, x):
 
 
 **Mini-VGG 训练结果**
-![学习报告 1 配图](/assets/blog/deep-learning/report-01/image-05.png)
+![学习报告 1 配图](/Chillist-Blogs/assets/blog/deep-learning/report-01/image-05.png)
 
 **Mini-VGG 测试结果**
-![学习报告 1 配图](/assets/blog/deep-learning/report-01/image-06.png)
+![学习报告 1 配图](/Chillist-Blogs/assets/blog/deep-learning/report-01/image-06.png)
 
 Mini-VGG 的实验结果说明，连续堆叠多个小卷积层能够增强网络对局部图像特征的提取能力。相比前期搭建的基础 CNN，Mini-VGG 结构更深、通道数变化更丰富，因此在 CIFAR-10 图像分类任务中取得了更好的测试效果。
 
@@ -259,7 +259,7 @@ ResNet18 主要由以下结构组成：
     
 
 当输入与输出的通道数或空间尺寸不一致时，需要使用 1×1 卷积对捷径分支进行调整，使其能够与主分支结果相加。
-![学习报告 1 配图](/assets/blog/deep-learning/report-01/image-07.png)
+![学习报告 1 配图](/Chillist-Blogs/assets/blog/deep-learning/report-01/image-07.png)
 
 
 **Residual 残差块与resnet_block代码**
@@ -384,11 +384,11 @@ ResNet18 训练完成后，最佳验证集准确率达到 89.78%，最终测试�
 
 
 **ResNet18 训练结果**
-![学习报告 1 配图](/assets/blog/deep-learning/report-01/image-08.png)
+![学习报告 1 配图](/Chillist-Blogs/assets/blog/deep-learning/report-01/image-08.png)
 
 
 **ResNet18 测试结果**
-![学习报告 1 配图](/assets/blog/deep-learning/report-01/image-09.png)
+![学习报告 1 配图](/Chillist-Blogs/assets/blog/deep-learning/report-01/image-09.png)
 
 
 实验结果说明，残差连接能够有效改善深层卷积网络的训练效果。相比单纯依靠卷积层堆叠的 Mini-VGG，ResNet18 在更深的网络结构下仍然保持了较好的优化能力，因此在 CIFAR-10 分类任务中取得了更高的准确率。
@@ -455,7 +455,7 @@ DenseNet 的主要模块包括：
 - 全局平均池化；
     
 - 全连接分类层。
-![学习报告 1 配图](/assets/blog/deep-learning/report-01/image-10.png)
+![学习报告 1 配图](/Chillist-Blogs/assets/blog/deep-learning/report-01/image-10.png)
 
 
 **DenseLayer 代码**
@@ -732,11 +732,11 @@ class DenseNetCIFAR10(nn.Module):
 
 
 **DenseNet 训练结果**
-![学习报告 1 配图](/assets/blog/deep-learning/report-01/image-11.png)
+![学习报告 1 配图](/Chillist-Blogs/assets/blog/deep-learning/report-01/image-11.png)
 
 
 **DenseNet 测试结果**
-![学习报告 1 配图](/assets/blog/deep-learning/report-01/image-12.png)
+![学习报告 1 配图](/Chillist-Blogs/assets/blog/deep-learning/report-01/image-12.png)
 
 
 实验结果说明，DenseNet 通过密集连接和特征复用，能够有效提升模型对图像信息的利用能力。其验证集准确率略高于 ResNet18，测试集准确率与 ResNet18 基本接近，说明 DenseNet 在 CIFAR-10 分类任务中同样具有较强的特征表达能力。

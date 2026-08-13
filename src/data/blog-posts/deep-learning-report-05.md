@@ -37,10 +37,10 @@ generate_mask 测试
 其中，`SelfAttentionn` 负责完成最核心的注意力公式计算；`MultiHeadAttention` 在此基础上完成 Q、K、V 的线性映射、多头拆分、注意力计算和多头拼接；`FeedForward` 用于对每个 token 的特征进行非线性变换；`EncoderLayer` 和 `DecoderLayer` 则分别组合注意力模块和前馈网络，构成 Transformer 的基本层结构。最后，`Encoder` 和 `Decoder` 通过多层堆叠形成完整的编码器和解码器，`Transformer` 类负责将二者连接起来，实现从源序列输入到目标序列预测的完整流程。
 
 在测试代码中，源语言词表和目标语言词表大小均设置为 10000，输入源序列 `src` 的形状为 `[32, 10]`，目标序列 `tgt` 的形状为 `[32, 20]`。其中 32 表示 batch size，10 表示源序列长度，20 表示目标序列长度。模型最终输出形状为 `[32, 20, 10000]`，表示每个目标序列位置都会输出一个 10000 维的词表预测分数。
-![学习报告 5 配图](/assets/blog/deep-learning/report-05/image-01.png)
+![学习报告 5 配图](/Chillist-Blogs/assets/blog/deep-learning/report-05/image-01.png)
 
 ### （2）SelfAttentionn 模块实现
-![学习报告 5 配图](/assets/blog/deep-learning/report-05/image-02.png)
+![学习报告 5 配图](/Chillist-Blogs/assets/blog/deep-learning/report-05/image-02.png)
 
 `SelfAttentionn` 是当前代码中最底层的注意力计算模块，主要实现缩放点积注意力。其核心公式为：
 $$
@@ -88,7 +88,7 @@ out = torch.matmul(attn, V)
 
 
 ### （3）MultiHeadAttention 模块实现
-![学习报告 5 配图](/assets/blog/deep-learning/report-05/image-03.png)![学习报告 5 配图](/assets/blog/deep-learning/report-05/image-04.png)
+![学习报告 5 配图](/Chillist-Blogs/assets/blog/deep-learning/report-05/image-03.png)![学习报告 5 配图](/Chillist-Blogs/assets/blog/deep-learning/report-05/image-04.png)
 在 `MultiHeadAttention` 中，代码首先定义了 Q、K、V 的三个线性映射层：
 
 ```python
@@ -134,7 +134,7 @@ return self.norm(out + q), attn
 完成残差连接和 LayerNorm。残差连接可以保留原始输入信息，LayerNorm 则可以使每层输出分布更加稳定，有利于深层模型训练。
 
 ### （4）FeedForward 前馈网络实现
-![学习报告 5 配图](/assets/blog/deep-learning/report-05/image-05.png)
+![学习报告 5 配图](/Chillist-Blogs/assets/blog/deep-learning/report-05/image-05.png)
 
 `FeedForward` 模块由两层线性层组成：
 
@@ -161,7 +161,7 @@ return self.norm(out + x)
 可以看出，前馈网络不会改变序列长度，也不会让不同 token 之间直接交互，而是对每个 token 的 512 维特征单独进行非线性变换。token 之间的信息交互主要由注意力机制完成，而 FeedForward 负责增强每个位置自身的表达能力。
 
 ### （5）EncoderLayer 与 Encoder 实现
-![学习报告 5 配图](/assets/blog/deep-learning/report-05/image-06.png)
+![学习报告 5 配图](/Chillist-Blogs/assets/blog/deep-learning/report-05/image-06.png)
 
 `EncoderLayer` 由多头自注意力和前馈网络组成。代码中：
 
@@ -175,7 +175,7 @@ out = self.ffn(out)
 以当前测试输入为例，源序列 `src` 的初始形状为 `[32, 10]`，经过 `nn.Embedding` 后变成 `[32, 10, 512]`，再经过位置编码后形状仍为 `[32, 10, 512]`。进入 EncoderLayer 后，Q、K、V 经过多头拆分变为 `[32, 8, 10, 64]`，注意力分数矩阵形状为 `[32, 8, 10, 10]`，表示源序列中 10 个 token 两两之间的相关性。
 
 完整 `Encoder` 类中使用 `nn.ModuleList` 堆叠多个 EncoderLayer：
-![学习报告 5 配图](/assets/blog/deep-learning/report-05/image-07.png)
+![学习报告 5 配图](/Chillist-Blogs/assets/blog/deep-learning/report-05/image-07.png)
 
 ```python
 self.layers = nn.ModuleList([
@@ -186,7 +186,7 @@ self.layers = nn.ModuleList([
 默认情况下，编码器层数为 6 层。因此源序列会连续经过 6 层 EncoderLayer，每一层都会更新 token 的上下文表示，但整体形状始终保持 `[32, 10, 512]`。最后 Encoder 输出 `memory`，其形状为 `[32, 10, 512]`，表示源语言序列的上下文编码结果。
 
 ### （6）DecoderLayer 与 Decoder 实现
-![学习报告 5 配图](/assets/blog/deep-learning/report-05/image-08.png)
+![学习报告 5 配图](/Chillist-Blogs/assets/blog/deep-learning/report-05/image-08.png)
 
 `DecoderLayer` 是本周学习中的重点之一。与 EncoderLayer 不同，DecoderLayer 包含三个部分：Masked Self-Attention、Cross-Attention 和 FeedForward。
 
@@ -217,7 +217,7 @@ $$
 
 以当前测试维度为例，`memory` 的形状为 `[32, 10, 512]`，Decoder 当前输出 `out` 的形状为 `[32, 20, 512]`。进入 Cross-Attention 后，Q 的形状为 `[32, 8, 20, 64]`，K 和 V 的形状为 `[32, 8, 10, 64]`。注意力分数矩阵形状为 `[32, 8, 20, 10]`，表示目标序列中的 20 个位置分别去源序列的 10 个位置中寻找相关信息。
 
-![学习报告 5 配图](/assets/blog/deep-learning/report-05/image-09.png)
+![学习报告 5 配图](/Chillist-Blogs/assets/blog/deep-learning/report-05/image-09.png)
 完整 `Decoder` 类同样使用 `nn.ModuleList` 堆叠多个 DecoderLayer。每一层 DecoderLayer 都会先在目标序列内部建模，再通过 Cross-Attention 读取 Encoder 的 `memory`，最后通过 FeedForward 更新每个位置的表示。Decoder 最后一层输出形状为 `[32, 20, 512]`，随后通过：
 
 ```python
@@ -227,7 +227,7 @@ self.fc_out = nn.Linear(d_model, vocab_size)
 映射到目标词表大小，最终输出 `[32, 20, 10000]`。
 
 ### （7）PositionalEncoding 与 generate_mask 实现
-![学习报告 5 配图](/assets/blog/deep-learning/report-05/image-10.png)
+![学习报告 5 配图](/Chillist-Blogs/assets/blog/deep-learning/report-05/image-10.png)
 
 在位置编码部分，代码首先创建形状为 `[max_len, d_model]` 的位置编码矩阵：
 
@@ -251,7 +251,7 @@ self.register_buffer('pe', pe)
 将位置编码注册为 buffer。这样位置编码会随着模型一起保存和移动到 GPU，但不会作为可训练参数参与梯度更新。在 forward 中，代码根据当前输入序列长度截取对应位置编码，并与 embedding 相加，使模型能够获得 token 的顺序信息。
 
 
-![学习报告 5 配图](/assets/blog/deep-learning/report-05/image-11.png)
+![学习报告 5 配图](/Chillist-Blogs/assets/blog/deep-learning/report-05/image-11.png)
 在 mask 构造部分，代码定义了 `generate_mask(size)` 函数，用于生成 Decoder 中的 Causal Mask：
 
 ```python
@@ -262,7 +262,7 @@ return mask == 0
 当 `size=20` 时，该函数生成形状为 `[20, 20]` 的下三角可见矩阵。矩阵中 True 表示当前位置可见，False 表示未来位置需要被屏蔽。在 Decoder 的注意力计算中，该 mask 可以广播到 `[32, 8, 20, 20]`，从而保证目标序列中每个位置只能关注自己及之前的位置。
 
 ### （8）Transformer 整体前向传播与测试结果
-![学习报告 5 配图](/assets/blog/deep-learning/report-05/image-12.png)
+![学习报告 5 配图](/Chillist-Blogs/assets/blog/deep-learning/report-05/image-12.png)
 
 完整 Transformer 类将 Encoder 和 Decoder 连接起来。forward 过程如下：
 
@@ -292,7 +292,7 @@ tgt + memory → Decoder → out
 $$
 h_t = A h_{t-1} + B x_t
 $$
-![学习报告 5 配图](/assets/blog/deep-learning/report-05/image-13.png)
+![学习报告 5 配图](/Chillist-Blogs/assets/blog/deep-learning/report-05/image-13.png)
 
 其中，`h_t` 表示当前时刻的隐藏状态，`h_{t-1}` 表示上一时刻的隐藏状态，`x_t` 表示当前输入。矩阵 A 控制历史状态如何保留和演化，矩阵 B 控制当前输入如何写入隐藏状态。
 
@@ -301,7 +301,7 @@ $$
 y_t = C h_t + D x_t
 $$
 
-![学习报告 5 配图](/assets/blog/deep-learning/report-05/image-14.png)
+![学习报告 5 配图](/Chillist-Blogs/assets/blog/deep-learning/report-05/image-14.png)
 
 其中，矩阵 C 控制当前隐藏状态如何影响输出，矩阵 D 表示输入对输出的直接影响。在 IBM 网站中的 SSM 图示中，通常会重点展示 A、B、C 三个核心矩阵，而 D 有时会被省略，以突出状态更新和输出生成的主要过程。
 
@@ -317,11 +317,11 @@ B_t &= \mathrm{Linear}_{B}(x_t) \\
 C_t &= \mathrm{Linear}_{C}(x_t)
 \end{aligned}
 $$
-![学习报告 5 配图](/assets/blog/deep-learning/report-05/image-15.png)
+![学习报告 5 配图](/Chillist-Blogs/assets/blog/deep-learning/report-05/image-15.png)
 其中，`Δ_t` 控制当前输入对隐藏状态更新的影响幅度；`B_t` 控制当前输入如何写入状态；`C_t` 控制当前状态如何影响输出。需要注意的是，`Δ_t`、`B_t`、`C_t` 是根据当前 token 临时生成的中间结果，模型真正长期保存和训练的是生成它们的线性层权重。这一点与 Transformer 中 Q、K、V 的生成方式很相似：Transformer 保存的是 `W_q`、`W_k`、`W_v`，而不是每个 token 产生的 Q、K、V 中间值。
 
 Mamba 模块的基本结构可以概括为以下流程：
-![学习报告 5 配图](/assets/blog/deep-learning/report-05/image-16.png)
+![学习报告 5 配图](/Chillist-Blogs/assets/blog/deep-learning/report-05/image-16.png)
 ```python
 输入 x
  ↓

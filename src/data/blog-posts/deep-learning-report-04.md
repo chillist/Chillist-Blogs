@@ -76,7 +76,7 @@ Embedding Matrix =
 
 需要注意的是，有些 PPT 会把词嵌入矩阵画成 `[d, V]`，也就是转置后的形式。这种画法也可以成立，只是矩阵方向约定不同。实际写 PyTorch 代码时，通常按 `[V, d]` 理解更方便。
 
-![图1 独热向量与词嵌入矩阵示意图](/assets/blog/deep-learning/report-04/image-02.png)
+![图1 独热向量与词嵌入矩阵示意图](/Chillist-Blogs/assets/blog/deep-learning/report-04/image-02.png)
 
 **图1 独热向量与词嵌入矩阵示意图**
 
@@ -170,7 +170,7 @@ AV.shape = L × d_k
 其中 `A` 是注意力权重矩阵，`AV` 是最终输出。
 `AV` 表示每个 token 根据注意力权重，从所有 token 的 V 中融合信息后得到的新表示。
 
-![图2 自注意力机制矩阵计算流程](/assets/blog/deep-learning/report-04/image-03.png)
+![图2 自注意力机制矩阵计算流程](/Chillist-Blogs/assets/blog/deep-learning/report-04/image-03.png)
 
 **图2 自注意力机制矩阵计算流程**
 
@@ -221,7 +221,7 @@ L × d
 
 这样后续才能接残差连接和下一层 Transformer。
 
-![图3 多头注意力机制结构示意图](/assets/blog/deep-learning/report-04/image-04.png)
+![图3 多头注意力机制结构示意图](/Chillist-Blogs/assets/blog/deep-learning/report-04/image-04.png)
 
 **图3 多头注意力机制结构示意图**
 
@@ -275,7 +275,7 @@ Scores = QKᵀ / √d_k + Mask
 
 经过 softmax 后，`-∞` 对应的位置会变成 0，因此模型就不会从 padding token 中取信息。
 
-![图4 Padding Mask 填充掩码示意图](/assets/blog/deep-learning/report-04/image-05.png)
+![图4 Padding Mask 填充掩码示意图](/Chillist-Blogs/assets/blog/deep-learning/report-04/image-05.png)
 
 **图4 Padding Mask 填充掩码示意图**
 
@@ -320,7 +320,7 @@ playing ball
 
 所以 Causal Mask 会把未来位置遮住，使注意力矩阵变成下三角形式。这样模型只能根据当前词和前面的词预测下一个词。
 
-![图5 Causal Mask 因果掩码示意图](/assets/blog/deep-learning/report-04/image-06.png)
+![图5 Causal Mask 因果掩码示意图](/Chillist-Blogs/assets/blog/deep-learning/report-04/image-06.png)
 
 **图5 Causal Mask 因果掩码示意图**
 
@@ -371,9 +371,9 @@ hidden_dim
 - 层归一化和批量归一化的区别在于：批量归一化在 d 的维度上找出一个矩阵，将其均值变成 0 ，方差变成 1，层归一化每次选的是一个元素，也就是每个 batch 里面的一个样本进行归一化
 - 尽管批量归一化在计算机视觉中被广泛应用，但是在自然语言处理任务中，批量归一化通常不如层归一化的效果好，因为**在自然语言处理任务中，输入序列的长度通常是变化的**
 - 虽然在做层归一化的时候，长度也是变化的，但是至少来说还是在一个**单样本**中，不管批量多少，都给定一个特征，这样对于变化的长度来讲，稍微稳定一点，不会因为长度变化，导致稳定性发生很大的变化
-![学习报告 4 配图](/assets/blog/deep-learning/report-04/image-01.png)
+![学习报告 4 配图](/Chillist-Blogs/assets/blog/deep-learning/report-04/image-01.png)
 
-![图6 LayerNorm 层归一化示意图](/assets/blog/deep-learning/report-04/image-07.png)
+![图6 LayerNorm 层归一化示意图](/Chillist-Blogs/assets/blog/deep-learning/report-04/image-07.png)
 
 **图6 LayerNorm 层归一化示意图**
 
@@ -482,7 +482,7 @@ AV.shape = L_D × d_k
 
 例如翻译时，Decoder 在生成 `ball` 时，可能会重点关注 Encoder 中的“篮球”。
 
-![图7 Cross-Attention 交叉注意力矩阵计算过程](/assets/blog/deep-learning/report-04/image-08.png)
+![图7 Cross-Attention 交叉注意力矩阵计算过程](/Chillist-Blogs/assets/blog/deep-learning/report-04/image-08.png)
 
 **图7 Cross-Attention 交叉注意力矩阵计算过程**
 
@@ -555,7 +555,7 @@ I like playing basketball <eos>
 
 预测到 `<eos>` 后，句子生成结束。
 
-![图8 Transformer 编码器-解码器训练流程](/assets/blog/deep-learning/report-04/image-09.png)
+![图8 Transformer 编码器-解码器训练流程](/Chillist-Blogs/assets/blog/deep-learning/report-04/image-09.png)
 
 **图8 Transformer 编码器-解码器训练流程**
 

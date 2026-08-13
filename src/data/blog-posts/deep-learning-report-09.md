@@ -33,7 +33,7 @@ GAN中包含生成器Generator和判别器Discriminator两个网络。
 
 GAN的整体数据流动过程如图所示。
 
-![学习报告 9 配图](/assets/blog/deep-learning/report-09/image-01.png)
+![学习报告 9 配图](/Chillist-Blogs/assets/blog/deep-learning/report-09/image-01.png)
 
 生成器的输入通常是一组随机噪声向量，输出是生成的假图像。判别器的输入既可以是真实图像，也可以是生成器输出的假图像，最终输出一个真假判断结果。
 
@@ -188,7 +188,7 @@ class Discriminator(nn.Module):
 ## 四、判别器与生成器的交替训练
 
 一个batch中的GAN训练过程可以分为判别器训练和生成器训练两个阶段，具体过程如图所示。
-![学习报告 9 配图](/assets/blog/deep-learning/report-09/image-02.png)
+![学习报告 9 配图](/Chillist-Blogs/assets/blog/deep-learning/report-09/image-02.png)
 ### 1.判别器训练阶段
 
 判别器的目标是将真实图像判断为真，将生成器产生的假图像判断为假。

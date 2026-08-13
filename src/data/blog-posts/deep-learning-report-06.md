@@ -55,7 +55,7 @@ Softmax
 Next Token Probability
 ```
 
-![学习报告 6 配图](/assets/blog/deep-learning/report-06/image-01.png)
+![学习报告 6 配图](/Chillist-Blogs/assets/blog/deep-learning/report-06/image-01.png)
 
 输入 token 首先会经过 Input Embedding。Embedding 的作用是把 token id 转换成向量，因为模型不能直接处理文字，只能处理数字向量。
 
@@ -252,7 +252,7 @@ Mamba 的核心是选择性状态空间模型。普通状态空间模型会用�
 
 Mamba 和 RWKV 都使用 state 保存历史信息，但两者的机制不同。Mamba 重点在于选择性状态空间模型，通过动态控制状态更新来处理序列；RWKV 重点在于 Time Mix 和 WKV 机制，通过递推 state 来融合历史信息。
 
-![学习报告 6 配图](/assets/blog/deep-learning/report-06/image-02.png)
+![学习报告 6 配图](/Chillist-Blogs/assets/blog/deep-learning/report-06/image-02.png)
 
 ---
 

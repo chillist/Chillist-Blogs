@@ -117,7 +117,7 @@ CLASS_NAMES = {
 
 
 **猫狗分类项目数据目录结构**
-![学习报告 2 配图](/assets/blog/deep-learning/report-02/image-01.png)
+![学习报告 2 配图](/Chillist-Blogs/assets/blog/deep-learning/report-02/image-01.png)
 
 ---
 
@@ -177,11 +177,11 @@ Resize
 这样可以保证每次验证和测试时输入保持稳定，评估结果更具可比性。
 
 **训练集图像预处理代码**
-![学习报告 2 配图](/assets/blog/deep-learning/report-02/image-02.png)
+![学习报告 2 配图](/Chillist-Blogs/assets/blog/deep-learning/report-02/image-02.png)
 
 
 **验证集与测试集图像预处理代码**
-![学习报告 2 配图](/assets/blog/deep-learning/report-02/image-03.png)
+![学习报告 2 配图](/Chillist-Blogs/assets/blog/deep-learning/report-02/image-03.png)
 
 
 ---
@@ -256,7 +256,7 @@ return image, label
 
 
 **CatDogDataset 自定义数据集类**
-![学习报告 2 配图](/assets/blog/deep-learning/report-02/image-04.png)
+![学习报告 2 配图](/Chillist-Blogs/assets/blog/deep-learning/report-02/image-04.png)
 
 
 ---
@@ -424,7 +424,7 @@ stratify=df["labels"]
 
 
 **图6 训练集、验证集与测试集划分代码**
-![学习报告 2 配图](/assets/blog/deep-learning/report-02/image-05.png)
+![学习报告 2 配图](/Chillist-Blogs/assets/blog/deep-learning/report-02/image-05.png)
 
 
 ---
@@ -528,8 +528,8 @@ labels.shape = [32]
 
 
 **DataLoader 构建代码**
-![学习报告 2 配图](/assets/blog/deep-learning/report-02/image-06.png)
-![学习报告 2 配图](/assets/blog/deep-learning/report-02/image-07.png)
+![学习报告 2 配图](/Chillist-Blogs/assets/blog/deep-learning/report-02/image-06.png)
+![学习报告 2 配图](/Chillist-Blogs/assets/blog/deep-learning/report-02/image-07.png)
 
 
 ---
@@ -604,7 +604,7 @@ self.model.fc = nn.Sequential(
 
 
 **迁移学习版 ResNet18 模型代码**
-![学习报告 2 配图](/assets/blog/deep-learning/report-02/image-08.png)
+![学习报告 2 配图](/Chillist-Blogs/assets/blog/deep-learning/report-02/image-08.png)
 
 ---
 

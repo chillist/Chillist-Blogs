@@ -16,7 +16,8 @@ export async function getStaticPaths() {
 const { post } = Astro.props
 const { title, slug, description, publishDate } = post.data;
 const readingTimeEstimate = readingTime(post.body).text
-const permalink = `${Astro.site.href}blog/${slug}`;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const permalink = new URL(`${base}/blog/${slug}`, Astro.site).href;
 const { Content } = await render(post)
 ---
 

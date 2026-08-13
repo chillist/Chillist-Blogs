@@ -3,7 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const title = '关于 Chillist';
 const description = '关于 Chillist，以及这个博客记录的学习、实践与成长。';
-const permalink = `${Astro.site.href}about`;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const permalink = new URL(`${base}/about`, Astro.site).href;
 ---
 
 <BaseLayout title={title} description={description} permalink={permalink} current="about">
@@ -16,7 +17,7 @@ const permalink = `${Astro.site.href}about`;
       </div>
 
       <figure class="about-image">
-        <img src="/assets/about-illustration.webp" alt="笔记本插画" width="420">
+        <img src={`${base}/assets/about-illustration.webp`} alt="笔记本插画" width="420">
       </figure>
     </section>
 
