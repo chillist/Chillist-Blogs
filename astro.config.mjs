@@ -7,8 +7,7 @@ import rehypeExternalLinks from 'rehype-external-links'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://chillist.github.io',
-  base: '/Chillist-Blogs',
+  site: 'https://chillist-blogs.pages.dev',
 
   integrations: [mdx(), svelte()],
 
